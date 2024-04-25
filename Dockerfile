@@ -3,9 +3,6 @@ FROM nginx:latest
 # Copia o arquivo index.html para /usr/share/nginx/html
 COPY html/index.html /usr/share/nginx/html/
 
-# Remove o default virtual host
-RUN [ -f /etc/nginx/sites-enabled/default ] && rm /etc/nginx/sites-enabled/default || true
-
 # Copia o arquivo de configuração para sites-available
 COPY sites-available/jorgedev.net /etc/nginx/sites-available/
 
