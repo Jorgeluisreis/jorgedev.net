@@ -26,5 +26,4 @@ docker exec "$CONTAINER_NAME" bash -c '
     fi
     
     ln -s "$nginx_dir/sites-available/jorgedev.net" "$sites_enabled_dir/jorgedev.net"
-    nginx -g "daemon off;"
 '
