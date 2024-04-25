@@ -4,7 +4,7 @@
 CONTAINER_NAME="jorgedev_net"
 
 # Inicia o contêiner
-docker run -d -p 2405:80 --name "$CONTAINER_NAME" ghcr.io/jorgeluisreis/jorgedev.net:main
+docker run -d -p 2504:80 --name "$CONTAINER_NAME" ghcr.io/jorgeluisreis/jorgedev.net:main
 
 # Verifica se o contêiner está em execução
 while ! docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; do
