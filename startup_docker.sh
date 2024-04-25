@@ -14,9 +14,17 @@ done
 
 # Executa os comandos dentro do contêiner
 docker exec "$CONTAINER_NAME" bash -c '
-    if [ -f "/etc/nginx/sites-enabled/default" ]; then
-        unlink "/etc/nginx/sites-enabled/default"
+    nginx_dir="/etc/nginx"
+    sites_enabled_dir="$nginx_dir/sites-enabled"
+    
+    if [ ! -d "$sites_enabled_dir" ]; then
+        mkdir -p "$sites_enabled_dir"
     fi
-    ln -s /etc/nginx/sites-available/jorgedev.net /etc/nginx/sites-enabled/jorgedev.net
+    
+    if [ -f "$sites_enabled_dir/default" ]; then
+        unlink "$sites_enabled_dir/default"
+    fi
+    
+    ln -s "$nginx_dir/sites-available/jorgedev.net" "$sites_enabled_dir/jorgedev.net"
     nginx -g "daemon off;"
 '
