@@ -4,7 +4,7 @@ FROM nginx:latest
 COPY html/index.html /usr/share/nginx/html/
 
 # Remove o default virtual host
-RUN unlink /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-enabled/default
 
 # Copia o arquivo de configuração para sites-available
 COPY sites-available/jorgedev.net /etc/nginx/sites-available/
