@@ -1,11 +1,9 @@
-version: "3"
+version: "3.8"
 
 services:
   nginx:
     container_name: jorgedev_net
     image: ghcr.io/jorgeluisreis/jorgedev.net:main
-    build:
-      context: ./config
     ports:
       - 2504:80
       - 2505:443
