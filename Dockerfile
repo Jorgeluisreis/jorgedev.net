@@ -11,3 +11,4 @@ COPY nginx/etc/nginx/nginx.conf /etc/nginx/
 
 # Porta
 EXPOSE 80
+EXPOSE 443

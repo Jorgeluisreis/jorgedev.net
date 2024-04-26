@@ -1,8 +1,11 @@
+version: "3"
+
 services:
   nginx:
     container_name: jorgedev_net
     image: ghcr.io/jorgeluisreis/jorgedev.net:main
-    restart: always
+    build:
+      context: ./config
     ports:
       - 2504:80
       - 2505:443
@@ -10,13 +13,25 @@ services:
       - ./nginx/usr/share/nginx/html:/usr/share/nginx/html
       - ./nginx/etc/nginx/sites-available:/etc/nginx/sites-available
       - ./nginx/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./config:/config
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /tmp/acme-challenge:/tmp/acme-challenge
+
+    networks:
+      - app
+    restart: always
       
-  certbot:
+  letsencrypt:
     image: certbot/certbot
     container_name: certbot_jorgedev
+    command: sh -c "certbot certonly --webroot -w /tmp/acme-challenge/ -d jorgedev.net --text --agree-tos --email ctt.jluis@gmail.com --rsa-key-size 4096 --verbose --keep-until-expiring --preferred-challenges=http"
+    entrypoint: ""
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ctt.jluis@gmail.com -d jorgedev.net --agree-tos
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/tmp/acme-challenge:/tmp/acme-challenge"
+    environment:
+      - TERM=xterm
+
+    networks:
+      app:
+       driver: bridge
