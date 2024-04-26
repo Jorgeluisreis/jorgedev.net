@@ -16,7 +16,6 @@ services:
       - ./config:/config
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /tmp/acme-challenge:/tmp/acme-challenge
-
     networks:
       - app
     restart: always
@@ -31,7 +30,9 @@ services:
       - "/tmp/acme-challenge:/tmp/acme-challenge"
     environment:
       - TERM=xterm
-
     networks:
-      app:
-       driver: bridge
+      - app
+
+networks:
+  app:
+    driver: bridge

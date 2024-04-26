@@ -9,6 +9,6 @@ COPY nginx/etc/nginx/sites-available/jorgedev.net /etc/nginx/sites-available/
 # Substitui o nginx.conf personalizado para o container
 COPY nginx/etc/nginx/nginx.conf /etc/nginx/
 
-# Porta
+# Portas
 EXPOSE 80
 EXPOSE 443
